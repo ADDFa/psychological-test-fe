@@ -1,10 +1,17 @@
 import { createBrowserRouter } from "react-router-dom"
 import LandingPage from "./Pages/LandingPage"
+import Root from "./Root"
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <LandingPage />
+        element: <Root />,
+        children: [
+            {
+                index: true,
+                element: <LandingPage />
+            }
+        ]
     }
 ])
 
