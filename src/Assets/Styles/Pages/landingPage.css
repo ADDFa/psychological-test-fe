@@ -30,6 +30,25 @@
     font-weight: bold;
 }
 
+#landing-page form::-webkit-scrollbar {
+    width: 4px;
+}
+
+#landing-page form::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 1rem;
+}
+
+#landing-page form::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 148, 41, .96);
+}
+
+#landing-page form {
+    height: 77vh;
+    overflow: auto;
+    padding: 0 1rem;
+}
+
 @media screen and (width < 820px) {
     #landing-page .flowers {
         display: none;
