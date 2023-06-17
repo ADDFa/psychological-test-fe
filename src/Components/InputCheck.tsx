@@ -4,7 +4,7 @@ const InputCheck: React.FC<InputCheckT> = ({
     name,
     col,
     type,
-    className
+    ...rest
 }) => {
     return (
         <div className={`form-check py-3 ${col ? `col-md-${col}` : ""}`}>
@@ -13,6 +13,7 @@ const InputCheck: React.FC<InputCheckT> = ({
                 type={type}
                 name={name}
                 id={id}
+                {...rest}
             />
             <label className={`form-check-label`} htmlFor={id}>
                 {label}

@@ -3,6 +3,8 @@ declare namespace Api {
         ok: boolean
         status: number
         statusText: string
-        data: Record<string, any>
+        result: Record<string, any>
     }
+
+    type MethodT = "GET" | "POST"
 }

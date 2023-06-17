@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import Button from "../../Components/Button"
+import { memo } from "react"
 
 const Navbar = () => {
     return (
@@ -36,4 +37,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default memo(Navbar)

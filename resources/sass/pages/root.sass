@@ -1,0 +1,51 @@
+.root
+    display: flex
+    gap: 1rem
+    position: relative
+
+#sidebar
+    color: #fff
+    width: 22rem
+    height: 100vh
+    position: sticky
+    top: 0
+    left: 0
+
+    ul
+        display: flex
+        flex-direction: column
+        gap: .4rem
+        padding: 0
+        list-style: none
+        padding: 1rem
+
+    li
+        .active, a:hover
+            color: #0A2463 !important
+            background-color: #fff
+
+        a
+            text-decoration: none
+            display: grid
+            grid-template-areas: "icon text"
+            grid-template-columns: 2rem auto
+            align-items: center
+            width: 100%
+            padding: .8rem
+            border-radius: .4rem
+            transition: 200ms
+
+            i
+                grid-area: icon
+                font-size: 1.4rem
+
+            span
+                grid-area: text
+
+.brand
+    font-size: 4rem
+    height: 6rem
+
+.content
+    padding: 3rem 2rem
+    flex-grow: 1

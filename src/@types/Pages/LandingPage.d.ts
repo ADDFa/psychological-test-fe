@@ -1,23 +1,17 @@
 declare namespace LandingPage {
-    type Content = React.Dispatch<React.SetStateAction>
+    type Active = "login" | "register"
 
-    type Active = (evt: React.MouseEvent<HTMLAnchorElement>) => void
-
-    interface Menu {
-        setContent: Content
-        active: Active
+    interface LandingPage {
+        handleForm: () => void
     }
 
-    interface MainContent {
-        content: string
+    interface LoginC extends LandingPage {
+        loginRef: React.MutableRefObject<HTMLDivElement | null>
     }
 
-    interface LinkMenu {
-        text: string
-        to: string
+    interface RegisterC extends LandingPage {
+        registerRef: React.MutableRefObject<HTMLDivElement | null>
     }
 
-    interface Home {
-        active: Active
-    }
+    type TitleForm = "LOGIN" | "REGISTER"
 }
