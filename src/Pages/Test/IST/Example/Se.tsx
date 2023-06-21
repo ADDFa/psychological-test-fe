@@ -1,5 +1,5 @@
 import { FC, memo } from "react"
-import Option from "../Components/Option"
+import Option from "../../Components/Option"
 
 const Se: FC = () => {
     return (

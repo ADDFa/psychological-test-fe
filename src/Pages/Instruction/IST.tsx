@@ -5,7 +5,7 @@ const IST = () => {
     return (
         <Instruction
             title="IST (INTELLIGENCE STRUCTURE TEST)"
-            toNextTest="/test/ist?category=se"
+            toNextTest="/test/ist/instruction?category=se"
         >
             <table className="table">
                 <tbody>

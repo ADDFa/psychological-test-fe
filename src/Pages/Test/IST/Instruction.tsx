@@ -1,5 +1,5 @@
-import { useSearchParams } from "react-router-dom"
-import { MouseEventHandler, Suspense, lazy } from "react"
+import { Suspense, lazy } from "react"
+import { Link, useSearchParams } from "react-router-dom"
 
 const SeExample = lazy(() => import("./Example/Se"))
 const WaExample = lazy(() => import("./Example/Wa"))
@@ -21,7 +21,7 @@ const FaDescription = lazy(() => import("./Description/Fa"))
 const WuDescription = lazy(() => import("./Description/Wu"))
 const MeDescription = lazy(() => import("./Description/Me"))
 
-const ISTInstruction = () => {
+const Instruction = () => {
     const [searchParams] = useSearchParams()
     const category = searchParams.get("category")
 
@@ -30,7 +30,7 @@ const ISTInstruction = () => {
             directionsTo: "Petunjuk Subtes 1 (SE)",
             task: "Melengkapi Kalimat",
             Example: SeExample,
-            next: "/test/ist/se",
+            next: "/test/ist?category=se",
             Description: SeDescription
         },
         wa: {
@@ -95,10 +95,6 @@ const ISTInstruction = () => {
 
     const { directionsTo, next, task, Description, Example } = instruction
 
-    const registerTest: MouseEventHandler<HTMLButtonElement> = () => {
-        console.log(next)
-    }
-
     return (
         <div className="container my-5 col-md-7">
             <div>
@@ -125,16 +121,13 @@ const ISTInstruction = () => {
                 </div>
 
                 <div className="d-flex justify-content-end">
-                    <button
-                        className="btn btn-primary text-light"
-                        onClick={registerTest}
-                    >
+                    <Link className="btn btn-primary text-light" to={next}>
                         Kerjakan Tes
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>
     )
 }
 
-export default ISTInstruction
+export default Instruction

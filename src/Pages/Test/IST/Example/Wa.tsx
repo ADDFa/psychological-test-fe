@@ -1,5 +1,5 @@
 import { memo } from "react"
-import Option from "../Components/Option"
+import Option from "../../Components/Option"
 
 const Wa = () => {
     return (

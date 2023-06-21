@@ -15,12 +15,9 @@ class Auth {
         localStorage.setItem("token_refresh", val || "")
     }
 
-    public static get auth() {
+    public static get auth(): Record<string, any> | undefined {
         const token = this.token_access
-        if (!token) {
-            return console.log("Token Not Found")
-        }
-
+        if (!token) return undefined
         return JSON.parse(atob(token.split(".")[1]))
     }
 
