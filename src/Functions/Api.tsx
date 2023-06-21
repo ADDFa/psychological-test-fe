@@ -1,91 +1,82 @@
-import { Alert } from "./Alert"
 import Auth from "./Auth"
 
 class Api {
-    static base_api = "http://127.0.0.1:8000/api"
-    static endpoint = ""
-    static method: Api.MethodT = "GET"
-    static body: BodyInit
-    static form: HTMLFormElement
+    private static baseApi = "http://127.0.0.1:8000/api"
 
-    public static fetcingData(): Promise<Api.Response> {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.base_api}/${this.endpoint}`, {
-                method: this.method,
-                body: this.body,
+    public static get base_api() {
+        return this.baseApi
+    }
+
+    public static fetchingData(
+        endpoint: string,
+        { headers, ...rest }: RequestInit
+    ): Promise<Api.Response> {
+        return new Promise(async (resolve, reject) => {
+            let result = await fetch(`${this.baseApi}/${endpoint}`, {
+                ...rest,
                 headers: {
-                    Authorization: `Bearer ${Auth.token_access}`
+                    Authorization: `Bearer ${Auth.token_access}`,
+                    ...headers
                 }
             })
-                .then(async (res) => ({
-                    ok: res.ok,
-                    status: res.status,
-                    statusText: res.statusText,
-                    result: await res.json()
-                }))
-                .then((res) => {
-                    res.ok ? resolve(res) : reject(res)
-                })
+
+            const response: Api.Response = {
+                status: result.status,
+                result: await result.json(),
+                ok: result.ok
+            }
+
+            return result.ok ? resolve(response) : reject(response)
         })
     }
 
-    public static handleRequest = async () => {
+    private static get isExpired(): boolean {
+        const date = new Date()
+        const now = Math.ceil(date.getTime() / 1000)
+        const auth = Auth.auth
+        if (!auth) return false
+
+        return now > auth.exp
+    }
+
+    public static async handle(
+        endpoint: string,
+        init: RequestInit = {}
+    ): Promise<Api.Response> {
         try {
-            const res = await this.fetcingData()
-
-            if ("message" in res.result) {
-                Alert.fire({
-                    icon: "success",
-                    text: res.result.message
+            if (this.isExpired) {
+                return await this.fetchingData("refresh-token", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        token_refresh: Auth.token_refresh
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(async (res) => {
+                    if (res.status !== 200) {
+                        localStorage.clear()
+                        window.location.href = "/"
+                    }
+                    Auth.setAuth(res)
+                    return await this.fetchingData(endpoint, init)
                 })
+            } else {
+                return await this.fetchingData(endpoint, init)
             }
-            return res
         } catch (e: any) {
-            const result = e.result
-            if (!result) return e as Api.Response
-
-            if ("errors" in result) {
-                const { errors } = result
-                for (const err in errors) {
-                    const elementE = this.form.querySelector(`[name="${err}"]`)
-                    elementE?.classList.add("is-invalid")
-                    const errorFeedbackE = document.createElement("p")
-                    errorFeedbackE.textContent = errors[err]
-                    errorFeedbackE.classList.add("invalid-feedback")
-                    elementE?.parentElement?.append(errorFeedbackE)
-                }
-            }
-            if ("message" in result) {
-                if (e.status >= 400 && e.status < 500) {
-                    Alert.fire({
-                        icon: "warning",
-                        text: result.message
-                    })
-                }
-                if (e.status >= 500) {
-                    Alert.fire({
-                        icon: "error",
-                        text: result.message
-                    })
-                }
-            }
-
-            return e as Api.Response
+            return e
         }
     }
 
-    public static get(endpoint: string) {
-        this.method = "GET"
-        this.endpoint = endpoint
-        return this.handleRequest()
-    }
-
-    public static post(endpoint: string, body: HTMLFormElement) {
-        this.method = "POST"
-        this.endpoint = endpoint
-        this.form = body
-        this.body = new FormData(body)
-        return this.handleRequest()
+    public static post(
+        endpoint: string,
+        body: HTMLFormElement
+    ): Promise<Api.Response> {
+        return this.handle(endpoint, {
+            method: "POST",
+            body: new FormData(body)
+        })
     }
 }
 

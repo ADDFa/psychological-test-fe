@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom"
 import Input from "../../Components/Input"
 import InputCheck from "../../Components/InputCheck"
-import Api from "../../Functions/Api"
 import { FC, FormEventHandler, memo } from "react"
+import usePost from "../../Hooks/usePost"
 
 const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
+    const create = usePost()
+
     const register: FormEventHandler<HTMLFormElement> = async (evt) => {
         evt.preventDefault()
-        Api.post("register", evt.currentTarget).then((res) => {
-            if (res.ok) console.log(res)
-        })
+        create("register", evt.currentTarget)
     }
 
     return (
@@ -31,12 +31,6 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
                     label="Pendidikan Umum"
                     name="general_education"
                 />
-                <Input
-                    id="special_education"
-                    label="Pendidikan Khusus"
-                    name="special_education"
-                />
-                <Input id="username-reg" label="Username" name="username" />
                 <div>
                     <label className="col-md-12">Jenis Kelamin</label>
 
@@ -57,6 +51,12 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
                         />
                     </div>
                 </div>
+                <Input
+                    id="special_education"
+                    label="Pendidikan Khusus"
+                    name="special_education"
+                />
+                <Input id="username-reg" label="Username" name="username" />
                 <Input
                     id="password-reg"
                     type="password"

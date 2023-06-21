@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom"
 import Button from "../../Components/Button"
-import { memo } from "react"
+import { FC, memo, useEffect, useRef } from "react"
 
-const Navbar = () => {
+const Navbar: FC<LandingPage.Navbar> = ({ loginRegisterRef }) => {
+    const btnLoginRef = useRef<HTMLButtonElement>(null)
+    const btnRegisterRef = useRef<HTMLButtonElement>(null)
+
+    useEffect(() => {
+        const buttons = [btnLoginRef, btnRegisterRef]
+
+        const handleClick = () => loginRegisterRef.current?.scrollIntoView()
+        buttons.map((button) =>
+            button.current?.addEventListener("click", handleClick)
+        )
+    }, [loginRegisterRef])
+
     return (
         <nav className="navbar navbar-expand-lg bg-primary text-light pt-4">
             <div className="container">
@@ -23,10 +35,19 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item d-flex gap-3">
-                            <Button color="light" outline className="px-3">
+                            <Button
+                                color="light"
+                                outline
+                                className="px-3"
+                                ref={btnLoginRef}
+                            >
                                 Sign In
                             </Button>
-                            <Button color="danger" className="text-light">
+                            <Button
+                                color="danger"
+                                className="text-light"
+                                ref={btnRegisterRef}
+                            >
                                 Register
                             </Button>
                         </li>

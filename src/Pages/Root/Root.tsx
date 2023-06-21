@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 
 import Sidebar from "./Sidebar"
 
@@ -11,12 +11,14 @@ const Root = () => {
                 <header className="row align-items-center justify-content-between mb-5">
                     <div className="col-md-8"></div>
 
-                    <div className="col-md-4">
-                        <input
-                            type="text"
-                            className="form-control border-success"
-                            placeholder="Cari..."
-                        />
+                    <div className="col-md-4 d-flex justify-content-end">
+                        <Link
+                            to="/"
+                            className="btn btn-primary text-light"
+                            onClick={() => localStorage.clear()}
+                        >
+                            Log Out
+                        </Link>
                     </div>
                 </header>
 

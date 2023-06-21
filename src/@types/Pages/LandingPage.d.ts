@@ -14,4 +14,8 @@ declare namespace LandingPage {
     }
 
     type TitleForm = "LOGIN" | "REGISTER"
+
+    interface Navbar {
+        loginRegisterRef: React.RefObject<HTMLDivElement>
+    }
 }

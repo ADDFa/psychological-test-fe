@@ -1,19 +1,17 @@
-import { Link } from "react-router-dom"
-
-const Card: React.FC<Dashboard.CardT> = ({
-    active = false,
-    title,
-    to,
-    totalTest
-}) => {
+const Card: React.FC<Dashboard.CardT> = ({ active = false, title, to }) => {
     return (
-        <Link to={`/test/${to}`} className="col-md-3 p-3 rounded-3">
-            <h4>{title}</h4>
-            <p>Jumlah Tes : {totalTest}</p>
-            <div className="status text-end">
-                {active ? "Active" : "Tidak Aktif"}
-            </div>
-        </Link>
+        <div className="card shadow border-0 col-md-3 p-3 rounded-3">
+            <h4 className="mb-5">{title.toUpperCase()}</h4>
+            <button
+                className={`btn bg-${
+                    active ? "success" : "secondary"
+                } text-light w-fit ms-auto badge fw-normal`}
+                disabled={!active}
+                onClick={() => window.open(`/instructions/${to}`)}
+            >
+                Kerjakan
+            </button>
+        </div>
     )
 }
 

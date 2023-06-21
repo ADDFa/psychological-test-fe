@@ -1,15 +1,22 @@
 import { Link, useNavigate } from "react-router-dom"
 import Input from "../../Components/Input"
+import { FC, FormEventHandler, memo } from "react"
 import Api from "../../Functions/Api"
-import { FC, memo } from "react"
+import Auth from "../../Functions/Auth"
+import HandleError from "../../Functions/HandleError"
 
 const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
     const navigate = useNavigate()
 
-    const login: React.FormEventHandler<HTMLFormElement> = async (evt) => {
+    const login: FormEventHandler<HTMLFormElement> = async (evt) => {
         evt.preventDefault()
-        Api.post("login", evt.currentTarget).then((res) => {
-            if (res.ok) return navigate("/dashboard")
+        const form = evt.currentTarget
+
+        Api.post("login", form).then((res) => {
+            if (!res.ok) return new HandleError(res, form).show()
+
+            Auth.setAuth(res)
+            navigate("/dashboard")
         })
     }
 
@@ -31,9 +38,7 @@ const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
                         registrasi sekarang
                     </Link>
                 </p>
-                <button type="submit" className="btn btn-primary">
-                    Sign In
-                </button>
+                <button className="btn btn-primary">Sign In</button>
             </form>
         </div>
     )

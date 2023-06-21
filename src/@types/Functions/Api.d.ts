@@ -1,10 +1,7 @@
-declare namespace Api {
+namespace Api {
     interface Response {
-        ok: boolean
         status: number
-        statusText: string
-        result: Record<string, any>
+        result: any
+        ok: boolean
     }
-
-    type MethodT = "GET" | "POST"
 }
