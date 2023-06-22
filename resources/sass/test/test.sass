@@ -1,1 +1,22 @@
 @use "./navigation-number"
+@use "./ge"
+
+.numbers
+    display: flex
+    gap: 8px
+
+    span
+        $size: 40px
+        text-align: center
+        width: $size
+        height: $size
+        line-height: $size
+        border: 1px solid #0A2463
+        border-radius: 4px
+
+        &:hover
+            cursor: pointer
+
+        &.active
+            color: #fff
+            background-color: #0A2463

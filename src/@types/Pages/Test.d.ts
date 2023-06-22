@@ -9,27 +9,29 @@ namespace Test {
         Example: React.LazyExoticComponent<React.FC>
         Description: React.LazyExoticComponent<React.FC>
         directionsTo: string
-        task: string
-        next: string
-    }
-
-    interface ContainerContext {
-        totalNavNum: number
-        setTotalNavNum?: React.Dispatch<React.SetStateAction<number>>
-    }
-
-    interface Container {
-        children?: React.ReactNode
-        totalQuestion: number
+        task: string | React.ReactNode
     }
 
     interface NavigationNumber {
-        total: number
-        index: number
-        setIndex: React.Dispatch<React.SetStateAction<number>>
+        totalQuestion: number
+        indexNoSoal: number
+        setIndexNoSoal: React.Dispatch<React.SetStateAction>
     }
 
-    interface Time {
-        time: number
+    interface Test extends NavigationNumber {
+        children?: React.ReactNode
+        next:
+            | "se"
+            | "wa"
+            | "an"
+            | "ge"
+            | "ra"
+            | "zr"
+            | "fa"
+            | "wu"
+            | "me"
+            | "msdt"
+            | "papi"
+            | "result-ist"
     }
 }

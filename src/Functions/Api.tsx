@@ -26,6 +26,8 @@ class Api {
                 ok: result.ok
             }
 
+            if (!response.ok) console.log(response)
+
             return result.ok ? resolve(response) : reject(response)
         })
     }
@@ -48,7 +50,7 @@ class Api {
                 return await this.fetchingData("refresh-token", {
                     method: "POST",
                     body: JSON.stringify({
-                        token_refresh: Auth.token_refresh
+                        token: Auth.token_refresh
                     }),
                     headers: {
                         "Content-Type": "application/json"

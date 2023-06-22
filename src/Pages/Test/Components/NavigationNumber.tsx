@@ -1,25 +1,24 @@
-import { FC } from "react"
+import { FC, memo } from "react"
 
 const NavigationNumber: FC<Test.NavigationNumber> = ({
-    total,
-    setIndex,
-    index
+    indexNoSoal,
+    setIndexNoSoal,
+    totalQuestion
 }) => {
-    const numbers = []
-
-    for (let i = 1; i <= total; i++) {
+    const numbers: number[] = []
+    for (let i = 1; i <= totalQuestion; i++) {
         numbers.push(i)
     }
-
-    const actived = (i: number) => (i === index ? "active" : "")
 
     return (
         <div className="navigation-number row gap-2">
             {numbers.map((number, i) => (
                 <button
                     key={number}
-                    className={`number text-center ${actived(i)}`}
-                    onClick={() => setIndex(i)}
+                    className={`number text-center ${
+                        indexNoSoal === i ? "active" : ""
+                    }`}
+                    onClick={() => setIndexNoSoal(i)}
                 >
                     {number}
                 </button>
@@ -28,4 +27,4 @@ const NavigationNumber: FC<Test.NavigationNumber> = ({
     )
 }
 
-export default NavigationNumber
+export default memo(NavigationNumber)

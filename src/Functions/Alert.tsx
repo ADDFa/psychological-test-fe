@@ -11,3 +11,17 @@ export const Alert = Swal.mixin({
         toast.addEventListener("mouseleave", Swal.resumeTimer)
     }
 })
+
+export const Confirm = (onConfirmed: () => any) => {
+    Swal.fire({
+        title: "Anda yakin?",
+        text: "Teliti kembali jawaban anda",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0A2463",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, lanjutkan!"
+    }).then((result) => {
+        if (result.isConfirmed) onConfirmed()
+    })
+}

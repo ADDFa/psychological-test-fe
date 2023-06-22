@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from "react-router-dom"
 import { Suspense, lazy } from "react"
 import LandingPage, { landingPageLoader } from "./Pages/LandingPage/LandingPage"
 import Auth from "./Functions/Auth"
+import Result from "./Pages/Test/IST/Result"
 
 const Root = lazy(() => import("./Pages/Root/Root"))
 const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"))
@@ -16,11 +17,13 @@ const ZrTest = lazy(() => import("./Pages/Test/ZrTest"))
 const FaTest = lazy(() => import("./Pages/Test/FaTest"))
 const WuTest = lazy(() => import("./Pages/Test/WuTest"))
 const MeTest = lazy(() => import("./Pages/Test/MeTest"))
+const MeWord = lazy(() => import("./Pages/Test/IST/Me/Word"))
 const MSDTTest = lazy(() => import("./Pages/Test/MSDTTest"))
 const PAPITest = lazy(() => import("./Pages/Test/PAPITest"))
 
 const ISTInstruction = lazy(() => import("./Pages/Instruction/IST"))
 const ISTTestInstruction = lazy(() => import("./Pages/Test/IST/Instruction"))
+const ISTResult = lazy(() => import("./Pages/Test/IST/Result"))
 
 const PAPIInstruction = lazy(() => import("./Pages/Instruction/PAPI"))
 const MSDTInstruction = lazy(() => import("./Pages/Instruction/MSDT"))
@@ -88,6 +91,14 @@ const router = createBrowserRouter([
                 element: (
                     <Suspense>
                         <ISTTestInstruction />
+                    </Suspense>
+                )
+            },
+            {
+                path: "/test/ist/result",
+                element: (
+                    <Suspense>
+                        <Result />
                     </Suspense>
                 )
             },
@@ -163,6 +174,14 @@ const router = createBrowserRouter([
                         element: (
                             <Suspense>
                                 <MeTest />
+                            </Suspense>
+                        )
+                    },
+                    {
+                        path: "me/words",
+                        element: (
+                            <Suspense>
+                                <MeWord />
                             </Suspense>
                         )
                     },
