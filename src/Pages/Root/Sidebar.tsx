@@ -35,7 +35,7 @@ const Sidebar = () => {
                 <SidebarItems
                     iconName="file-earmark-medical-fill"
                     text="Nilai Saya"
-                    to="/score"
+                    to=""
                 />
             </ul>
         </div>

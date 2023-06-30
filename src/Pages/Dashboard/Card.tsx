@@ -7,7 +7,7 @@ const Card: React.FC<Dashboard.CardT> = ({ active = false, title, to }) => {
                     active ? "success" : "secondary"
                 } text-light w-fit ms-auto badge fw-normal`}
                 disabled={!active}
-                onClick={() => window.open(`/instructions/${to}`)}
+                onClick={() => window.open(`/instruction/${to}`)}
             >
                 Kerjakan
             </button>

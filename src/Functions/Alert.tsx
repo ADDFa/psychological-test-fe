@@ -1,4 +1,4 @@
-import Swal from "sweetalert2"
+import Swal, { SweetAlertOptions } from "sweetalert2"
 
 export const Alert = Swal.mixin({
     toast: true,
@@ -12,15 +12,20 @@ export const Alert = Swal.mixin({
     }
 })
 
-export const Confirm = (onConfirmed: () => any) => {
+export const Confirm = (
+    { title = "Anda Yakin?", text, ...rest }: SweetAlertOptions,
+    onConfirmed: () => any
+) => {
     Swal.fire({
-        title: "Anda yakin?",
-        text: "Teliti kembali jawaban anda",
+        title: title,
+        text: text,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#0A2463",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Ya, lanjutkan!"
+        confirmButtonText: "Ya!",
+        cancelButtonText: "Batal",
+        ...rest
     }).then((result) => {
         if (result.isConfirmed) onConfirmed()
     })

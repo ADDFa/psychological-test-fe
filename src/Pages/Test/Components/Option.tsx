@@ -1,16 +1,23 @@
-import { FC, memo } from "react"
+import { FC, MouseEventHandler } from "react"
 
-const Option: FC<Test.Option> = ({ text, optionName, selected }) => {
+const Option: FC<Test.Option> = ({ name, text, autoSave, active }) => {
+    const handleClick: MouseEventHandler<HTMLDivElement> = (evt) => {
+        evt.currentTarget.parentElement
+            ?.querySelector(`[data-name="option"] .active`)
+            ?.classList.remove("active")
+        evt.currentTarget.firstElementChild?.classList.add(`active`)
+
+        if (autoSave) autoSave({ name, text })
+    }
+
     return (
-        <div className="col-md-2 d-flex align-items-center gap-3 mb-3">
-            <button
-                className={`btn border-primary ${
-                    selected ? "btn-primary" : ""
-                }`}
-            >{`${optionName}).`}</button>
+        <div className="option" data-name="option" onClick={handleClick}>
+            <span
+                className={`box-border ${active ? "active" : ""}`}
+            >{`${name} ) `}</span>
             <span>{text}</span>
         </div>
     )
 }
 
-export default memo(Option)
+export default Option

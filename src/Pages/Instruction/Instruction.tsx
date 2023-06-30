@@ -1,16 +1,15 @@
 import { FC } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 
-const Instruction: FC<Instruction.Instruction> = ({
-    children,
-    title,
-    toNextTest
-}) => {
+const Instruction: FC = () => {
+    const { title, toNextTest, InstructionC } =
+        useLoaderData() as InstructionLoader
+
     return (
         <div className="container col-md-7">
             <h1 className="text-center my-5 fw-bold fs-2">{title}</h1>
 
-            {children}
+            <InstructionC />
 
             <div className="text-end mt-5">
                 <Link to={toNextTest} className="btn btn-primary text-light">

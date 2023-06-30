@@ -1,4 +1,4 @@
-import { memo, useRef } from "react"
+import { useRef } from "react"
 
 const Time = () => {
     const hourRef = useRef<HTMLSpanElement>(null)
@@ -18,4 +18,4 @@ const Time = () => {
     )
 }
 
-export default memo(Time)
+export default Time

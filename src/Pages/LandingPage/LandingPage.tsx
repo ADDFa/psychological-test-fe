@@ -3,12 +3,6 @@ import Login from "./Login"
 import Navbar from "./Navbar"
 import Overview from "./Overview"
 import Register from "./Register"
-import Auth from "../../Functions/Auth"
-import { redirect } from "react-router-dom"
-
-export const landingPageLoader = () => {
-    return Auth.token_access ? redirect("/dashboard") : null
-}
 
 const LandingPage = () => {
     const loginRef = useRef<HTMLDivElement>(null)
