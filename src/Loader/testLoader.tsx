@@ -19,9 +19,28 @@ const testLoader: LoaderFunction = async ({ params }) => {
     const questionsRes = await Api.handle(`exam/${category}/do-the-exam`, {
         method: "POST"
     })
+    let questions: Question = null
+    let deadline: Deadline = null
+    if (questionsRes.ok) {
+        const { questions: q, deadline: d } = questionsRes.result
+        questions = q
+        deadline = d
+    } else if (questionsRes.status === 408) {
+        const timeoutE = document.createElement("div")
+        const timeoutTextE = document.createElement("h3")
+        const timeoutText = document.createTextNode(questionsRes.result.message)
+
+        timeoutE.classList.add("container", "my-5", "text-center")
+        timeoutTextE.classList.add("fw-bold", "text-danger")
+
+        timeoutTextE.appendChild(timeoutText)
+        timeoutE.appendChild(timeoutTextE)
+        document.querySelector("#root")?.appendChild(timeoutE)
+    }
 
     const result: TestLoader = {
-        questions: questionsRes.ok ? questionsRes.result : null,
+        questions,
+        deadline,
         Question: SeQuestion,
         next: next + "wa"
     }

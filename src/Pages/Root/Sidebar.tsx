@@ -6,16 +6,9 @@ const Sidebar = () => {
     const ulRef = useRef<HTMLUListElement>(null)
 
     useEffect(() => {
-        const currentActive = localStorage.getItem("sidebar_active")
-        if (currentActive) {
-            ulRef.current
-                ?.querySelector(`[href="${currentActive}"]`)
-                ?.classList.add("active")
-        } else {
-            ulRef.current?.firstElementChild?.firstElementChild?.classList.add(
-                "active"
-            )
-        }
+        ulRef.current
+            ?.querySelector(`[href="${window.location.pathname}"]`)
+            ?.classList.add("active")
     }, [])
 
     return (
@@ -35,7 +28,7 @@ const Sidebar = () => {
                 <SidebarItems
                     iconName="file-earmark-medical-fill"
                     text="Nilai Saya"
-                    to=""
+                    to="/exam/ist/score"
                 />
             </ul>
         </div>

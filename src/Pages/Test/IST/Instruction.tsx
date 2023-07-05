@@ -1,10 +1,7 @@
-import { Suspense, lazy } from "react"
-import { Link, useLoaderData, useParams } from "react-router-dom"
-
-const MeWord = lazy(() => import("./Me/Word"))
+import { Suspense } from "react"
+import { Link, useLoaderData } from "react-router-dom"
 
 const Instruction = () => {
-    const { category } = useParams()
     const {
         name,
         task,
@@ -18,13 +15,6 @@ const Instruction = () => {
             <div>
                 <h1 className="fs-3 text-center mb-5">{name}</h1>
                 <p>Tugas : {task}</p>
-
-                {category === "me" && (
-                    <Suspense>
-                        <MeWord />
-                    </Suspense>
-                )}
-
                 <p>Waktu : {time / 60} Menit</p>
             </div>
 

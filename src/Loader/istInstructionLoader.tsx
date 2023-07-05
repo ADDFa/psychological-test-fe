@@ -82,6 +82,7 @@ const istInstructionLoader: LoaderFunction = async ({ params }) => {
                 </>
             )
             result.InstructionC = Me
+            result.next = `/exam/ist/score`
             break
     }
 

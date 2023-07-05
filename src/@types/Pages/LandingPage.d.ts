@@ -17,5 +17,7 @@ declare namespace LandingPage {
 
     interface Navbar {
         loginRegisterRef: React.RefObject<HTMLDivElement>
+        showLogin: () => void
+        showRegister: () => void
     }
 }

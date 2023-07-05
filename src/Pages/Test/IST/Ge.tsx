@@ -40,6 +40,7 @@ const Ge: FC<Test.Question> = ({ questions }) => {
                             id="ge-example-answer"
                             defaultValue={answer}
                             onInput={(evt) => handleSave(evt.currentTarget, id)}
+                            autoComplete="off"
                         />
                     </div>
                 </div>

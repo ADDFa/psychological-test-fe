@@ -1,17 +1,13 @@
 import { MouseEventHandler, Suspense, useEffect, useRef } from "react"
 import { useLoaderData, useNavigate } from "react-router-dom"
-import { Confirm } from "../../Functions/Alert"
 import Time from "./Components/Time"
 
 const Test = () => {
     const navigate = useNavigate()
     const refQuestionParent = useRef<HTMLDivElement>(null)
     const refNavigationNumber = useRef<HTMLDivElement>(null)
-    const { questions, Question, next } = useLoaderData() as TestLoader
-
-    const toNextCategory = () => {
-        Confirm({ text: "Teliti kembali jawaban anda" }, () => navigate(next))
-    }
+    const { questions, deadline, Question, next } =
+        useLoaderData() as TestLoader
 
     const showQuestion = (question?: Element | null) => {
         question?.classList.remove("d-none")
@@ -58,8 +54,13 @@ const Test = () => {
     return (
         <div className="container my-5">
             <div className="row justify-content-between">
-                <Time />
-                <div className="col-md-5 d-flex justify-content-end">
+                {deadline && (
+                    <Time
+                        deadline={deadline.deadline}
+                        onTimeOut={() => navigate(next)}
+                    />
+                )}
+                <div className="col-md-5 d-flex justify-content-end mb-5">
                     <div
                         className="navigation-number row gap-2"
                         ref={refNavigationNumber}
@@ -88,12 +89,6 @@ const Test = () => {
                         <Question questions={questions} />
                     </Suspense>
                 )}
-            </div>
-
-            <div className="d-flex justify-content-end">
-                <button className="btn btn-primary" onClick={toNextCategory}>
-                    Lanjutkan
-                </button>
             </div>
         </div>
     )

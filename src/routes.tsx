@@ -9,6 +9,7 @@ const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"))
 const Instruction = lazy(() => import("./Pages/Instruction/Instruction"))
 const ISTInstruction = lazy(() => import("./Pages/Test/IST/Instruction"))
 const Test = lazy(() => import("./Pages/Test/Test"))
+const ISTScore = lazy(() => import("./Pages/Score/IST"))
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,18 @@ const router = createBrowserRouter([
                                 "./Loader/dashboardLoader"
                             )
                             return load.default(args)
+                        }
+                    },
+                    {
+                        path: "/exam/ist/score",
+                        element: (
+                            <Suspense>
+                                <ISTScore />
+                            </Suspense>
+                        ),
+                        loader: async () => {
+                            const load = await import("./Loader/scoreLoader")
+                            return load.default()
                         }
                     }
                 ]

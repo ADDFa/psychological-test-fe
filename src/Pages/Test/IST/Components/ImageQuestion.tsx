@@ -117,7 +117,11 @@ const ImageQuestion: FC<ImageQuestion> = ({ questions, category }) => {
     return (
         <>
             <div className="mb-5">
-                <img className="d-none" alt="Pertanyaan" ref={refQuestion} />
+                <img
+                    className="d-none w-100"
+                    alt="Pertanyaan"
+                    ref={refQuestion}
+                />
 
                 <Spinner ref={spinnerRef} />
             </div>

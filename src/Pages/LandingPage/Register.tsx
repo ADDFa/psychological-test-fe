@@ -9,7 +9,9 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
 
     const register: FormEventHandler<HTMLFormElement> = async (evt) => {
         evt.preventDefault()
-        create("register", evt.currentTarget)
+        create("register", evt.currentTarget, () => {
+            handleForm()
+        })
     }
 
     return (

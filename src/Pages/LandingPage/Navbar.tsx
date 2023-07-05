@@ -2,18 +2,33 @@ import { Link } from "react-router-dom"
 import Button from "../../Components/Button"
 import { FC, memo, useEffect, useRef } from "react"
 
-const Navbar: FC<LandingPage.Navbar> = ({ loginRegisterRef }) => {
+const Navbar: FC<LandingPage.Navbar> = ({
+    loginRegisterRef,
+    showLogin,
+    showRegister
+}) => {
     const btnLoginRef = useRef<HTMLButtonElement>(null)
     const btnRegisterRef = useRef<HTMLButtonElement>(null)
 
     useEffect(() => {
         const buttons = [btnLoginRef, btnRegisterRef]
 
-        const handleClick = () => loginRegisterRef.current?.scrollIntoView()
-        buttons.map((button) =>
-            button.current?.addEventListener("click", handleClick)
-        )
-    }, [loginRegisterRef])
+        const handleClick = (name: string) => {
+            loginRegisterRef.current?.scrollIntoView()
+            if (name === "login-btn") showLogin()
+            if (name === "register-btn") showRegister()
+        }
+        buttons.map((button) => {
+            if (button.current) {
+                const { name } = button.current.dataset
+                button.current?.addEventListener("click", () => {
+                    handleClick(name as string)
+                })
+            }
+
+            return null
+        })
+    }, [loginRegisterRef, showLogin, showRegister])
 
     return (
         <nav className="navbar navbar-expand-lg bg-primary text-light pt-4">
@@ -39,6 +54,7 @@ const Navbar: FC<LandingPage.Navbar> = ({ loginRegisterRef }) => {
                                 color="light"
                                 outline
                                 className="px-3"
+                                data-name="login-btn"
                                 ref={btnLoginRef}
                             >
                                 Sign In
@@ -47,6 +63,7 @@ const Navbar: FC<LandingPage.Navbar> = ({ loginRegisterRef }) => {
                                 color="danger"
                                 className="text-light"
                                 ref={btnRegisterRef}
+                                data-name="register-btn"
                             >
                                 Register
                             </Button>

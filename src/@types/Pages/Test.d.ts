@@ -83,4 +83,9 @@ namespace Test {
     }
 
     type AfterNavigate = () => void
+
+    interface Time {
+        deadline: number
+        onTimeOut?: () => void
+    }
 }
