@@ -1,16 +1,19 @@
 import { Link } from "react-router-dom"
 import Input from "../../Components/Input"
 import InputCheck from "../../Components/InputCheck"
-import { FC, FormEventHandler, memo } from "react"
+import { FC, memo } from "react"
 import usePost from "../../Hooks/usePost"
+import ButtonLoader from "../../Components/ButtonLoader"
 
 const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
     const create = usePost()
 
-    const register: FormEventHandler<HTMLFormElement> = async (evt) => {
-        evt.preventDefault()
-        create("register", evt.currentTarget, (res) => {
-            if (res.ok) handleForm()
+    const register: ButtonLoaderAction = (evt, activedButton) => {
+        const form = evt.currentTarget.form as HTMLFormElement
+
+        create("register", form, (res) => {
+            if (res.ok) return handleForm()
+            activedButton()
         })
     }
 
@@ -18,7 +21,7 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
         <div ref={registerRef} className="d-none">
             <h1 className="text-center">REGISTER</h1>
 
-            <form onSubmit={register}>
+            <form>
                 <Input id="name" label="Nama" name="name" />
                 <Input id="birthplace" label="Tempat Lahir" name="birthplace" />
                 <Input
@@ -71,9 +74,8 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
                         Sign In sekarang
                     </Link>
                 </p>
-                <button type="submit" className="btn btn-primary">
-                    Registrasi
-                </button>
+
+                <ButtonLoader text="Register" action={register} />
             </form>
         </div>
     )
