@@ -86,7 +86,7 @@ const router = createBrowserRouter([
                 path: "/admin",
                 element: (
                     <Suspense>
-                        <Root forAdmin />
+                        <Root />
                     </Suspense>
                 ),
                 children: [

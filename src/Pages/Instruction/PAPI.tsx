@@ -1,11 +1,6 @@
-import Instruction from "./Instruction"
 import Tr from "./Tr"
 
 const PAPI = () => {
-    // <Instruction
-    //     title=""
-    //     toNextTest="/test/papi"
-    // >
     return (
         <table className="table">
             <tbody>

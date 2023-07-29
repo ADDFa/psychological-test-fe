@@ -13,7 +13,7 @@ const Instruction = () => {
             console.log(res.result)
             setQuestionProps(res.result)
         })
-    }, [])
+    }, [categoryName])
 
     return (
         <div className="container my-5 col-md-7">

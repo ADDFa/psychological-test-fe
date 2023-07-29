@@ -1,11 +1,11 @@
 import { Link, Outlet } from "react-router-dom"
-import { FC } from "react"
 import Sidebar from "./Sidebar"
+import Auth from "../../Functions/Auth"
 
-const Root: FC<Root> = ({ forAdmin }) => {
+const Root = () => {
     return (
         <div className="root">
-            <Sidebar />
+            <Sidebar type={Auth.auth?.role} />
 
             <div className="content">
                 <header className="row align-items-center justify-content-between mb-5">

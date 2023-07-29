@@ -70,7 +70,7 @@ const Test = () => {
             .finally(() => {
                 setLoading(false)
             })
-    }, [])
+    }, [categoryName])
 
     return (
         <div className="container my-5">

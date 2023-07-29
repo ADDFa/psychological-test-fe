@@ -1,11 +1,6 @@
-import Instruction from "./Instruction"
 import Tr from "./Tr"
 
 const MSDT = () => {
-    // <Instruction
-    //     title=""
-    //     toNextTest="/test/msdt"
-    // >
     return (
         <table className="table">
             <tbody>

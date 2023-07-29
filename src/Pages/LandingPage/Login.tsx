@@ -20,7 +20,6 @@ const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
             Auth.setAuth(res)
 
             if (Auth.auth?.role === "admin") {
-                console.log("admin login")
                 return navigate("/admin/dashboard")
             }
 

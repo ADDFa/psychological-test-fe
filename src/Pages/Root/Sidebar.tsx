@@ -19,21 +19,7 @@ const Sidebar: FC<Sidebar> = ({ type }) => {
             </div>
 
             <ul ref={ulRef}>
-                {type === "user" ? (
-                    <>
-                        <SidebarItems
-                            iconName="house"
-                            text="Dashboard"
-                            to="/dashboard"
-                            active
-                        />
-                        <SidebarItems
-                            iconName="file-earmark-medical-fill"
-                            text="Nilai Saya"
-                            to="/exam/ist/score"
-                        />
-                    </>
-                ) : (
+                {type === "admin" ? (
                     <>
                         <SidebarItems
                             iconName="house"
@@ -46,6 +32,20 @@ const Sidebar: FC<Sidebar> = ({ type }) => {
                             text="Peserta"
                             to="/admin/participant"
                             active
+                        />
+                    </>
+                ) : (
+                    <>
+                        <SidebarItems
+                            iconName="house"
+                            text="Dashboard"
+                            to="/dashboard"
+                            active
+                        />
+                        <SidebarItems
+                            iconName="file-earmark-medical-fill"
+                            text="Nilai Saya"
+                            to="/exam/ist/score"
                         />
                     </>
                 )}

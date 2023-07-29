@@ -12,7 +12,7 @@ const ProgressBar: FC<Score.ProgessBar> = ({
         if (progressBarRef.current) {
             progressBarRef.current.style.width = `${width}%`
         }
-    }, [])
+    }, [width])
 
     return (
         <div className="w-100 mb-3">

@@ -1,11 +1,6 @@
 import Tr from "./Tr"
-import Instruction from "./Instruction"
 
 const IST = () => {
-    // <Instruction
-    //     title=""
-    //     toNextTest="/test/ist/instruction?category=se"
-    // >
     return (
         <table className="table">
             <tbody>
