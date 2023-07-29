@@ -1,5 +1,5 @@
-import { FC } from "react"
-import { Link, useLoaderData } from "react-router-dom"
+import { FC, lazy } from "react"
+import { Link, useLoaderData, useParams } from "react-router-dom"
 
 const Instruction: FC = () => {
     const { title, toNextTest, InstructionC } =

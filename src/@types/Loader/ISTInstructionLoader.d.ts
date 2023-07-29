@@ -3,5 +3,6 @@ interface ISTInstructionLoader {
     task: string | React.ReactNode
     InstructionC: React.LazyExoticComponent<React.FC>
     next: string
-    category: Api.Result
+    categoryName: string
+    // category: Api.Result
 }

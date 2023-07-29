@@ -6,6 +6,7 @@ import Auth from "./Functions/Auth"
 
 const Root = lazy(() => import("./Pages/Root/Root"))
 const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"))
+const DashboardAdmin = lazy(() => import("./Pages/Dashboard/Dashboard.admin"))
 const Instruction = lazy(() => import("./Pages/Instruction/Instruction"))
 const ISTInstruction = lazy(() => import("./Pages/Test/IST/Instruction"))
 const Test = lazy(() => import("./Pages/Test/Test"))
@@ -33,13 +34,7 @@ const router = createBrowserRouter([
                             <Suspense>
                                 <Dashboard />
                             </Suspense>
-                        ),
-                        loader: async (args) => {
-                            const load = await import(
-                                "./Loader/dashboardLoader"
-                            )
-                            return load.default(args)
-                        }
+                        )
                     },
                     {
                         path: "/exam/ist/score",
@@ -47,11 +42,7 @@ const router = createBrowserRouter([
                             <Suspense>
                                 <ISTScore />
                             </Suspense>
-                        ),
-                        loader: async () => {
-                            const load = await import("./Loader/scoreLoader")
-                            return load.default()
-                        }
+                        )
                     }
                 ]
             },
@@ -90,6 +81,24 @@ const router = createBrowserRouter([
                     const load = await import("./Loader/testLoader")
                     return load.default(args)
                 }
+            },
+            {
+                path: "/admin",
+                element: (
+                    <Suspense>
+                        <Root forAdmin />
+                    </Suspense>
+                ),
+                children: [
+                    {
+                        path: "dashboard",
+                        element: (
+                            <Suspense>
+                                <DashboardAdmin />
+                            </Suspense>
+                        )
+                    }
+                ]
             }
         ]
     }

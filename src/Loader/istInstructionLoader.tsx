@@ -1,6 +1,5 @@
 import { lazy } from "react"
 import { LoaderFunction } from "react-router-dom"
-import Api from "../Functions/Api"
 
 const Se = lazy(() => import("../Pages/Test/IST/Instructions/Se"))
 const Wa = lazy(() => import("../Pages/Test/IST/Instructions/Wa"))
@@ -24,7 +23,7 @@ const istInstructionLoader: LoaderFunction = async ({ params }) => {
         task: "Melengkapi Kalimat",
         InstructionC: Se,
         next: `/test/${category}`,
-        category: (await Api.handle(`question-category/${category}`)).result
+        categoryName: category as string
     }
 
     switch (category) {

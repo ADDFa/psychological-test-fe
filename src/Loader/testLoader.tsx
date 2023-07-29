@@ -1,6 +1,5 @@
 import { LoaderFunction } from "react-router-dom"
 import { lazy } from "react"
-import Api from "../Functions/Api"
 
 const AnQuestion = lazy(() => import("../Pages/Test/IST/An"))
 const FaQuestion = lazy(() => import("../Pages/Test/IST/Fa"))
@@ -16,33 +15,10 @@ const testLoader: LoaderFunction = async ({ params }) => {
     const { category } = params
     const next = "/instruction/ist/"
 
-    const questionsRes = await Api.handle(`exam/${category}/do-the-exam`, {
-        method: "POST"
-    })
-    let questions: Question = null
-    let deadline: Deadline = null
-    if (questionsRes.ok) {
-        const { questions: q, deadline: d } = questionsRes.result
-        questions = q
-        deadline = d
-    } else if (questionsRes.status === 408) {
-        const timeoutE = document.createElement("div")
-        const timeoutTextE = document.createElement("h3")
-        const timeoutText = document.createTextNode(questionsRes.result.message)
-
-        timeoutE.classList.add("container", "my-5", "text-center")
-        timeoutTextE.classList.add("fw-bold", "text-danger")
-
-        timeoutTextE.appendChild(timeoutText)
-        timeoutE.appendChild(timeoutTextE)
-        document.querySelector("#root")?.appendChild(timeoutE)
-    }
-
     const result: TestLoader = {
-        questions,
-        deadline,
         Question: SeQuestion,
-        next: next + "wa"
+        next: next + "wa",
+        categoryName: category as string
     }
 
     switch (category) {
@@ -83,7 +59,7 @@ const testLoader: LoaderFunction = async ({ params }) => {
 
         case "me":
             result.Question = MeQuestion
-            result.next = next + "me"
+            result.next = `/exam/ist/score`
             break
     }
 

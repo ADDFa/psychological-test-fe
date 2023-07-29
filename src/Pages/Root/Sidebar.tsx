@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react"
+import { FC, useEffect, useRef } from "react"
 import SidebarItems from "./SidebarItems"
 import logo from "../../Assets/logo-sp.webp"
 
-const Sidebar = () => {
+const Sidebar: FC<Sidebar> = ({ type }) => {
     const ulRef = useRef<HTMLUListElement>(null)
 
     useEffect(() => {
@@ -19,17 +19,36 @@ const Sidebar = () => {
             </div>
 
             <ul ref={ulRef}>
-                <SidebarItems
-                    iconName="house"
-                    text="Dashboard"
-                    to="/dashboard"
-                    active
-                />
-                <SidebarItems
-                    iconName="file-earmark-medical-fill"
-                    text="Nilai Saya"
-                    to="/exam/ist/score"
-                />
+                {type === "user" ? (
+                    <>
+                        <SidebarItems
+                            iconName="house"
+                            text="Dashboard"
+                            to="/dashboard"
+                            active
+                        />
+                        <SidebarItems
+                            iconName="file-earmark-medical-fill"
+                            text="Nilai Saya"
+                            to="/exam/ist/score"
+                        />
+                    </>
+                ) : (
+                    <>
+                        <SidebarItems
+                            iconName="house"
+                            text="Dashboard"
+                            to="/admin/dashboard"
+                            active
+                        />
+                        <SidebarItems
+                            iconName="people"
+                            text="Peserta"
+                            to="/admin/participant"
+                            active
+                        />
+                    </>
+                )}
             </ul>
         </div>
     )

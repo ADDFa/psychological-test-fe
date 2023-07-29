@@ -1,10 +1,19 @@
-import { FC } from "react"
+import { FC, useEffect, useRef } from "react"
 
 const ProgressBar: FC<Score.ProgessBar> = ({
     label,
     color = "primary",
-    value = ""
+    value = "",
+    width
 }) => {
+    const progressBarRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (progressBarRef.current) {
+            progressBarRef.current.style.width = `${width}%`
+        }
+    }, [])
+
     return (
         <div className="w-100 mb-3">
             <p className="mb-3">{label}</p>
@@ -18,9 +27,8 @@ const ProgressBar: FC<Score.ProgessBar> = ({
                 aria-valuemax={100}
             >
                 <div
-                    className={`progress-bar w-25 ${
-                        color ? `bg-${color}` : ""
-                    }`}
+                    className={`progress-bar ${color ? `bg-${color}` : ""}`}
+                    ref={progressBarRef}
                 >
                     {value}
                 </div>

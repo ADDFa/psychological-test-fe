@@ -2,6 +2,7 @@ import Auth from "./Auth"
 
 class Api {
     private static baseApi = "http://127.0.0.1:8000/api"
+    // private static baseApi = "https://psikotes.sahabatcpnskarir.com/api"
 
     private static async generateToken() {
         return await this.fetchingData("refresh-token", {

@@ -1,21 +1,29 @@
 import { Link, useNavigate } from "react-router-dom"
 import Input from "../../Components/Input"
-import { FC, FormEventHandler, memo } from "react"
+import { FC, memo } from "react"
 import Api from "../../Functions/Api"
 import Auth from "../../Functions/Auth"
 import HandleError from "../../Functions/HandleError"
+import ButtonLoader from "../../Components/ButtonLoader"
 
 const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
     const navigate = useNavigate()
 
-    const login: FormEventHandler<HTMLFormElement> = async (evt) => {
-        evt.preventDefault()
-        const form = evt.currentTarget
+    const login: ButtonLoaderAction = (evt, activedButton) => {
+        const form = evt.currentTarget.form as HTMLFormElement
 
         Api.post("login", form).then((res) => {
-            if (!res.ok) return new HandleError(res, form).show()
-
+            if (!res.ok) {
+                activedButton()
+                return new HandleError(res, form).show()
+            }
             Auth.setAuth(res)
+
+            if (Auth.auth?.role === "admin") {
+                console.log("admin login")
+                return navigate("/admin/dashboard")
+            }
+
             navigate("/dashboard")
         })
     }
@@ -24,7 +32,7 @@ const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
         <div ref={loginRef}>
             <h1 className="text-center mb-5">LOGIN</h1>
 
-            <form onSubmit={login}>
+            <form>
                 <Input id="username" label="Username" name="username" />
                 <Input
                     id="password"
@@ -38,7 +46,8 @@ const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
                         registrasi sekarang
                     </Link>
                 </p>
-                <button className="btn btn-primary">Sign In</button>
+
+                <ButtonLoader action={login} text="Login" />
             </form>
         </div>
     )

@@ -31,7 +31,7 @@ const QuestionImageOptions = forwardRef<
 
     useEffect(() => {
         setActiveOption(active)
-    }, [setActiveOption])
+    }, [active, setActiveOption])
 
     const number = (no: number) => {
         const number = no <= 9 ? `0${no}` : no

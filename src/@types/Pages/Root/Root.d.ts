@@ -1,0 +1,3 @@
+interface Root {
+    forAdmin?: boolean
+}

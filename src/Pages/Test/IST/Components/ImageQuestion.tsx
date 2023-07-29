@@ -27,6 +27,7 @@ const ImageQuestion: FC<ImageQuestion> = ({ questions, category }) => {
 
             Api.image(imgName)
                 .then((res) => {
+                    console.log(res)
                     imgRef.current?.setAttribute("src", res)
                     spinnerRef?.current?.classList.add("d-none")
                     imgRef.current?.classList.remove("d-none")
@@ -48,7 +49,7 @@ const ImageQuestion: FC<ImageQuestion> = ({ questions, category }) => {
             category,
             question_id: `${questionId}`
         })
-        const question = questions.find(({ id }) => id === questionId)
+        const question = questions.find(({ id }) => parseInt(id) === questionId)
         if (question) question.answer = value
     }
 
@@ -58,7 +59,7 @@ const ImageQuestion: FC<ImageQuestion> = ({ questions, category }) => {
             const { id } = target.dataset
 
             const questionRes = questions.find(
-                (question) => question.id === parseInt(id as string)
+                (question) => parseInt(question.id) === parseInt(id as string)
             )
             if (!questionRes) return
 

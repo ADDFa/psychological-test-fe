@@ -9,8 +9,8 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
 
     const register: FormEventHandler<HTMLFormElement> = async (evt) => {
         evt.preventDefault()
-        create("register", evt.currentTarget, () => {
-            handleForm()
+        create("register", evt.currentTarget, (res) => {
+            if (res.ok) handleForm()
         })
     }
 
@@ -33,6 +33,11 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
                     label="Pendidikan Umum"
                     name="general_education"
                 />
+                <Input
+                    id="special_education"
+                    label="Pendidikan Khusus"
+                    name="special_education"
+                />
                 <div>
                     <label className="col-md-12">Jenis Kelamin</label>
 
@@ -53,11 +58,6 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
                         />
                     </div>
                 </div>
-                <Input
-                    id="special_education"
-                    label="Pendidikan Khusus"
-                    name="special_education"
-                />
                 <Input id="username-reg" label="Username" name="username" />
                 <Input
                     id="password-reg"

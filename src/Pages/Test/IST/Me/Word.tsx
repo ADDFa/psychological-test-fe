@@ -13,7 +13,6 @@ const Word = ({ showInstruction }: { showInstruction: () => void }) => {
             .then((res) => {
                 setWords(res.result.words)
                 setDeadline(res.result.deadline)
-                console.log(res)
             })
             .catch((res) => {
                 console.log(res)

@@ -1,8 +1,8 @@
 import { Link, Outlet } from "react-router-dom"
-
+import { FC } from "react"
 import Sidebar from "./Sidebar"
 
-const Root = () => {
+const Root: FC<Root> = ({ forAdmin }) => {
     return (
         <div className="root">
             <Sidebar />
