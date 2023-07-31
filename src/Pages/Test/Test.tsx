@@ -140,14 +140,16 @@ const Test = () => {
                 </div>
             )}
 
-            <div className="text-end my-5">
-                <button
-                    onClick={() => navigate(next)}
-                    className="btn btn-warning"
-                >
-                    Lanjutkan
-                </button>
-            </div>
+            {!loading && (
+                <div className="text-end my-5">
+                    <button
+                        onClick={() => navigate(next)}
+                        className="btn btn-warning"
+                    >
+                        Lanjutkan
+                    </button>
+                </div>
+            )}
         </div>
     )
 }

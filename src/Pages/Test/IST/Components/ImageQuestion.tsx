@@ -27,7 +27,6 @@ const ImageQuestion: FC<ImageQuestion> = ({ questions, category }) => {
 
             Api.image(imgName)
                 .then((res) => {
-                    console.log(res)
                     imgRef.current?.setAttribute("src", res)
                     spinnerRef?.current?.classList.add("d-none")
                     imgRef.current?.classList.remove("d-none")

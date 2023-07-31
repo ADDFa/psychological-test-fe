@@ -12,19 +12,17 @@ const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
     const login: ButtonLoaderAction = (evt, activedButton) => {
         const form = evt.currentTarget.form as HTMLFormElement
 
-        Api.post("login", form).then((res) => {
-            if (!res.ok) {
-                activedButton()
-                return new HandleError(res, form).show()
-            }
-            Auth.setAuth(res)
+        Api.post("login", form)
+            .then((res) => {
+                if (!res.ok) return new HandleError(res, form).show()
 
-            if (Auth.auth?.role === "admin") {
-                return navigate("/admin/dashboard")
-            }
+                Auth.setAuth(res)
+                if (Auth.auth?.role === "admin")
+                    return navigate("/admin/dashboard")
 
-            navigate("/dashboard")
-        })
+                navigate("/dashboard")
+            })
+            .finally(() => activedButton())
     }
 
     return (

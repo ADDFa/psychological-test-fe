@@ -18,7 +18,7 @@ const Classification: FC<ISTScore.Classification> = ({ classification }) => {
     }
 
     return (
-        <div className="col-md-5">
+        <>
             <ProgressBar
                 label="Daya Tangkap"
                 color={comprehension < 3 ? "danger" : "primary"}
@@ -49,7 +49,7 @@ const Classification: FC<ISTScore.Classification> = ({ classification }) => {
                 value={memory_and_concentration}
                 width={getWidth(memory_and_concentration)}
             />
-        </div>
+        </>
     )
 }
 

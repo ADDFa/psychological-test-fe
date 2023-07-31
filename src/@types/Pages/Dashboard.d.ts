@@ -4,4 +4,11 @@ namespace Dashboard {
         to: string
         active?: boolean
     }
+
+    interface CardAdminT {
+        title: string
+        content: string
+        to: string
+        textLink?: string
+    }
 }

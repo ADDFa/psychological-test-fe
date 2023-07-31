@@ -10,7 +10,6 @@ const Instruction = () => {
 
     useEffect(() => {
         Api.handle(`question-category/${categoryName}`).then((res) => {
-            console.log(res.result)
             setQuestionProps(res.result)
         })
     }, [categoryName])

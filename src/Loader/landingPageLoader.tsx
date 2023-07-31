@@ -2,7 +2,13 @@ import { redirect } from "react-router-dom"
 import Auth from "../Functions/Auth"
 
 const landingPageLoader = () => {
-    return Auth.token_access ? redirect("/dashboard") : null
+    if (Auth.token_access) {
+        const path =
+            Auth.auth?.role === "admin" ? "/admin/dashboard" : "/dashboard"
+
+        return redirect(path)
+    }
+    return null
 }
 
 export default landingPageLoader

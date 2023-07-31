@@ -1,16 +1,8 @@
-import { FC, useEffect, useRef } from "react"
+import { FC } from "react"
 import SidebarItems from "./SidebarItems"
 import logo from "../../Assets/logo-sp.webp"
 
 const Sidebar: FC<Sidebar> = ({ type }) => {
-    const ulRef = useRef<HTMLUListElement>(null)
-
-    useEffect(() => {
-        ulRef.current
-            ?.querySelector(`[href="${window.location.pathname}"]`)
-            ?.classList.add("active")
-    }, [])
-
     return (
         <div id="sidebar" className="bg-primary">
             <div className="brand p-3 mb-3">
@@ -18,7 +10,7 @@ const Sidebar: FC<Sidebar> = ({ type }) => {
                 <span className="fs-3 fw-bold">Psychological</span>
             </div>
 
-            <ul ref={ulRef}>
+            <ul>
                 {type === "admin" ? (
                     <>
                         <SidebarItems
@@ -28,10 +20,19 @@ const Sidebar: FC<Sidebar> = ({ type }) => {
                             active
                         />
                         <SidebarItems
+                            iconName="journal-bookmark-fill"
+                            text="Tes"
+                            to="/admin/exam"
+                        />
+                        <SidebarItems
                             iconName="people"
                             text="Peserta"
                             to="/admin/participant"
-                            active
+                        />
+                        <SidebarItems
+                            iconName="printer-fill"
+                            text="Cetak Nilai Peserta"
+                            to="/admin/print-result"
                         />
                     </>
                 ) : (

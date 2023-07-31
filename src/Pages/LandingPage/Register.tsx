@@ -13,6 +13,7 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
 
         create("register", form, (res) => {
             if (res.ok) return handleForm()
+        }).finally(() => {
             activedButton()
         })
     }

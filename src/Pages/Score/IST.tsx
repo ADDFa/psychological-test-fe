@@ -2,6 +2,8 @@ import Classification from "./IST/Classification"
 import { useEffect, useState } from "react"
 import Api from "../../Functions/Api"
 import Spinner from "../../Components/Spinner"
+import InfoUser from "./IST/InfoUser"
+import Iq from "./IST/Iq"
 
 const IST = () => {
     const [score, setScore] = useState<Api.Result>()
@@ -45,49 +47,19 @@ const IST = () => {
 
                 {score && (
                     <>
-                        <Classification classification={score.classification} />
+                        <div className="col-md-5">
+                            <Classification
+                                classification={score.classification}
+                            />
+                        </div>
 
                         <div className="col-md-5">
-                            <div className="border mx-auto text-center p-2 rounded-3 mb-5">
-                                <h1 className="text-primary fs-5">IQ</h1>
-                                {iqNorma && (
-                                    <>
-                                        <h3
-                                            className={`fs-1 text-${
-                                                iqNorma.iq > 70
-                                                    ? "success"
-                                                    : "danger"
-                                            }`}
-                                        >
-                                            {iqNorma.iq}
-                                        </h3>
-                                        <p>{iqNorma.category}</p>
-                                    </>
-                                )}
-                            </div>
+                            {iqNorma && <Iq iqNorma={iqNorma} />}
 
-                            <div>
-                                <table className="table">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="col">Nama</th>
-                                            <td>{user.name}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">TTL</th>
-                                            <td>{`${user.birthplace}, ${user.date_of_birth}`}</td>
-                                        </tr>
-                                        <tr>
-                                            <th className="col">Tgl Tes</th>
-                                            <td>2023-07-27</td>
-                                        </tr>
-                                        <tr>
-                                            <th className="col">Pendidikan</th>
-                                            <td>{user.general_education}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <InfoUser
+                                user={user}
+                                createdTest={score.user_test.created_at}
+                            />
                         </div>
                     </>
                 )}
