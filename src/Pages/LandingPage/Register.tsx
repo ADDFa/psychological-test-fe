@@ -1,25 +1,14 @@
 import { Link } from "react-router-dom"
 import Input from "../../Components/Input"
 import InputCheck from "../../Components/InputCheck"
-import { FC, memo } from "react"
 import usePost from "../../Hooks/usePost"
 import ButtonLoader from "../../Components/ButtonLoader"
 
-const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
+const Register = () => {
     const create = usePost()
 
-    const register: ButtonLoaderAction = (evt, activedButton) => {
-        const form = evt.currentTarget.form as HTMLFormElement
-
-        create("register", form, (res) => {
-            if (res.ok) return handleForm()
-        }).finally(() => {
-            activedButton()
-        })
-    }
-
     return (
-        <div ref={registerRef} className="d-none">
+        <div className="d-none">
             <h1 className="text-center">REGISTER</h1>
 
             <form>
@@ -70,16 +59,13 @@ const Register: FC<LandingPage.RegisterC> = ({ registerRef, handleForm }) => {
                     name="password"
                 />
                 <p>
-                    Sudah memiliki akun?{" "}
-                    <Link to="#" onClick={handleForm}>
-                        Sign In sekarang
-                    </Link>
+                    Sudah memiliki akun? <Link to="#">Sign In sekarang</Link>
                 </p>
 
-                <ButtonLoader text="Register" action={register} />
+                <ButtonLoader text="Register" />
             </form>
         </div>
     )
 }
 
-export default memo(Register)
+export default Register

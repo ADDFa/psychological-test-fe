@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 const SidebarItems: React.FC<SidebarItemsT> = ({ to, iconName, text }) => {
     return (
         <li>
-            <NavLink to={to}>
+            <NavLink to={to} className="text-light">
                 <i className={`bi bi-${iconName}`} />
                 <span>{text}</span>
             </NavLink>

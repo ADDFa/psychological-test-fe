@@ -6,24 +6,27 @@ import InfoUser from "./IST/InfoUser"
 import Iq from "./IST/Iq"
 
 const IST = () => {
-    const [score, setScore] = useState<Api.Result>()
     const [errorMessage, setErrorMessage] = useState<string>("")
     const [iqNorma, setIqNorma] = useState<Record<string, any>>()
     const [user, setUser] = useState<Record<string, any>>({})
     const [loading, setLoading] = useState<boolean>(true)
+    const [classification, setClassification] = useState<Api.Result>()
+    const [userTest, setUserTest] = useState<Api.Result>()
 
     useEffect(() => {
         Api.handle("exam/1/score")
             .then((res) => {
-                if (res.status === 200) {
-                    setScore(res.result)
-                    setIqNorma(res.result.iq.norma)
-                    setUser(res.result.user)
-                }
+                const { ok, result } = res
 
-                if ("message" in res.result) {
-                    setErrorMessage(res.result.message)
+                if ("message" in result) {
+                    return setErrorMessage(res.result.message)
                 }
+                if (!ok) return
+
+                setIqNorma(res.result.iq.norma)
+                setUser(res.result.user)
+                setClassification(res.result.classification)
+                setUserTest(res.result.user_test)
             })
             .finally(() => {
                 setLoading(false)
@@ -43,22 +46,20 @@ const IST = () => {
                     </div>
                 )}
 
-                {loading && <Spinner />}
-
-                {score && (
+                {loading ? (
+                    <Spinner />
+                ) : (
                     <>
                         <div className="col-md-5">
-                            <Classification
-                                classification={score.classification}
-                            />
+                            <Classification classification={classification} />
                         </div>
 
                         <div className="col-md-5">
-                            {iqNorma && <Iq iqNorma={iqNorma} />}
+                            <Iq iqNorma={iqNorma} />
 
                             <InfoUser
                                 user={user}
-                                createdTest={score.user_test.created_at}
+                                createdTest={userTest?.created_at}
                             />
                         </div>
                     </>

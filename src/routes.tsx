@@ -3,6 +3,8 @@ import { Suspense, lazy } from "react"
 import landingPageLoader from "./Loader/landingPageLoader"
 import LandingPage from "./Pages/LandingPage/LandingPage"
 import Auth from "./Functions/Auth"
+import Login from "./Pages/LandingPage/Login"
+import Register from "./Pages/LandingPage/Register"
 
 const Root = lazy(() => import("./Pages/Root/Root"))
 const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"))
@@ -22,6 +24,16 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <LandingPage />,
+        children: [
+            {
+                index: true,
+                element: <Login />
+            },
+            {
+                path: "/register",
+                element: <Register />
+            }
+        ],
         loader: landingPageLoader
     },
     {

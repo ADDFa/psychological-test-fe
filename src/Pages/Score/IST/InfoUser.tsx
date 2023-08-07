@@ -2,6 +2,8 @@ import { FC } from "react"
 import { getDateFormat } from "../../../Functions/getDateFormat"
 
 const InfoUser: FC<ISTScore.InfoUser> = ({ user, createdTest }) => {
+    if (!user) return <></>
+
     return (
         <div>
             <table className="table">

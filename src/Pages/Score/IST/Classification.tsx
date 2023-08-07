@@ -2,6 +2,8 @@ import { FC } from "react"
 import ProgressBar from "../Components/ProgressBar"
 
 const Classification: FC<ISTScore.Classification> = ({ classification }) => {
+    if (!classification) return <></>
+
     const {
         comprehension,
         flexibility_of_thinking,

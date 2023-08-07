@@ -1,6 +1,8 @@
 import { FC } from "react"
 
 const Iq: FC<ISTScore.Iq> = ({ iqNorma }) => {
+    if (!iqNorma) return <></>
+
     return (
         <div className="border mx-auto text-center p-2 rounded-3 mb-5">
             <h1 className="text-primary fs-5">IQ</h1>

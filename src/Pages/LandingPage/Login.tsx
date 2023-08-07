@@ -1,12 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
 import Input from "../../Components/Input"
-import { FC, memo } from "react"
 import Api from "../../Functions/Api"
 import Auth from "../../Functions/Auth"
 import HandleError from "../../Functions/HandleError"
 import ButtonLoader from "../../Components/ButtonLoader"
 
-const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
+const Login = () => {
     const navigate = useNavigate()
 
     const login: ButtonLoaderAction = (evt, activedButton) => {
@@ -26,7 +25,7 @@ const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
     }
 
     return (
-        <div ref={loginRef}>
+        <div>
             <h1 className="text-center mb-5">LOGIN</h1>
 
             <form>
@@ -38,10 +37,7 @@ const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
                     name="password"
                 />
                 <p>
-                    Belum memiliki akun?{" "}
-                    <Link to="#" onClick={handleForm}>
-                        registrasi sekarang
-                    </Link>
+                    Belum memiliki akun? <Link to="#">registrasi sekarang</Link>
                 </p>
 
                 <ButtonLoader action={login} text="Login" />
@@ -50,4 +46,4 @@ const Login: FC<LandingPage.LoginC> = ({ loginRef, handleForm }) => {
     )
 }
 
-export default memo(Login)
+export default Login
